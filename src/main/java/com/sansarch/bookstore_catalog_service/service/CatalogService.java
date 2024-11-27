@@ -34,9 +34,22 @@ public class CatalogService {
     public EditBookOutputDto editBook(Long id, EditBookInputDto input) {
         var book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
 
-        book.setTitle(input.getTitle());
-        book.setAuthor(input.getAuthor());
-        book.setStockAvailability(input.getStockAvailability());
+        if (input.getTitle() != null) {
+            book.setTitle(input.getTitle());
+        }
+
+        if (input.getAuthor() != null) {
+            book.setAuthor(input.getAuthor());
+        }
+
+        if (input.getStockAvailability() != null) {
+            book.setStockAvailability(input.getStockAvailability());
+        }
+
+        if (input.getPrice() != null) {
+            book.setPrice(input.getPrice());
+        }
+
         this.bookRepository.save(book);
 
         return BookMapper.INSTANCE.bookEntityToEditBookOutputDto(book);
