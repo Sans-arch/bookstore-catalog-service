@@ -12,5 +12,5 @@ public class CreateBookOutputDto {
     private String title;
     private String author;
     private BigDecimal price;
-    private Long stockAvailability;
+    private Integer stockAvailability;
 }

@@ -35,4 +35,10 @@ public class CatalogController {
     public ResponseEntity<EditBookOutputDto> editBook(@PathVariable Long id, @RequestBody EditBookInputDto input) {
         return ResponseEntity.ok(catalogService.editBook(id, input));
     }
+
+    @PutMapping("/stock")
+    public ResponseEntity<Void> deductStock(@RequestBody List<StockDeductionInputDto> input) {
+        catalogService.deductStock(input);
+        return ResponseEntity.status(204).build();
+    }
 }

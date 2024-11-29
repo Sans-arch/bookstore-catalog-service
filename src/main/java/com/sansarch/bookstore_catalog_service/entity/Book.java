@@ -28,5 +28,5 @@ public class Book {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private Long stockAvailability;
+    private Integer stockAvailability;
 }
