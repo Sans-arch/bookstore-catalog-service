@@ -19,6 +19,8 @@ The **Catalog Service** is a microservice in the Online Bookstore system that ma
 - **Spring Data JPA**: For seamless database interactions.
 - **Maven**: Dependency and build management.
 - **MapStruct**: For mapping between entities and DTOs.
+- **Lombok**: For reducing boilerplate code.
+- **GitHub Actions**: For CI/CD pipeline.
 
 ## API Endpoints
 
