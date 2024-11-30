@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.controller;
+package com.sansarch.bookstore_catalog_service.http.controller;
 
 import com.sansarch.bookstore_catalog_service.dto.*;
 import com.sansarch.bookstore_catalog_service.service.CatalogService;

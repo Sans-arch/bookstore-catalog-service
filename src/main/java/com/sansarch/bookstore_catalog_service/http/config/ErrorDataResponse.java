@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.config;
+package com.sansarch.bookstore_catalog_service.http.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.config;
+package com.sansarch.bookstore_catalog_service.http.config;
 
 import com.sansarch.bookstore_catalog_service.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.exception.InsufficientStockException;
