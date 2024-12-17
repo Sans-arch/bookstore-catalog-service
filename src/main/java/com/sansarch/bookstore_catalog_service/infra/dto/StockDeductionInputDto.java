@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.dto;
+package com.sansarch.bookstore_catalog_service.infra.dto;
 
 import lombok.*;
 

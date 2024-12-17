@@ -1,8 +1,8 @@
-package com.sansarch.bookstore_catalog_service.http.config;
+package com.sansarch.bookstore_catalog_service.infra.http.config;
 
-import com.sansarch.bookstore_catalog_service.exception.BookNotFoundException;
-import com.sansarch.bookstore_catalog_service.exception.InsufficientStockException;
-import com.sansarch.bookstore_catalog_service.exception.OutOfStockException;
+import com.sansarch.bookstore_catalog_service.domain.exception.BookNotFoundException;
+import com.sansarch.bookstore_catalog_service.domain.exception.InsufficientStockException;
+import com.sansarch.bookstore_catalog_service.domain.exception.OutOfStockException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

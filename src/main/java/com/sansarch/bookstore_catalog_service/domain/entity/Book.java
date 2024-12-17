@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.entity;
+package com.sansarch.bookstore_catalog_service.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
