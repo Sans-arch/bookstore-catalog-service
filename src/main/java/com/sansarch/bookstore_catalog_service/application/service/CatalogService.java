@@ -7,6 +7,7 @@ import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockEx
 import com.sansarch.bookstore_catalog_service.application.repository.BookRepository;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
 import com.sansarch.bookstore_catalog_service.application.mapper.BookMapper;
+import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,48 +24,51 @@ public class CatalogService {
 
     public CreateBookOutputDto addBookToCatalog(CreateBookInputDto input) {
         Book book = BookMapper.INSTANCE.createBookInputDtoToBookEntity(input);
-        bookRepository.save(book);
-        return BookMapper.INSTANCE.bookEntityToCreateBookOutputDto(book);
+        BookModel bookModel = BookMapper.INSTANCE.bookEntityToBookModel(book);
+        bookRepository.save(bookModel);
+        return BookMapper.INSTANCE.bookModelToCreateBookOutputDto(bookModel);
     }
 
     public List<ListBooksOutputDto> listAllBooks() {
-        return BookMapper.INSTANCE.bookEntityListToListBooksOutputDtoList(bookRepository.findAll());
+        return BookMapper.INSTANCE.bookModelListToListBooksOutputDtoList(bookRepository.findAll());
     }
 
     public FindBookOutputDto findBook(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        BookModel bookModel = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
         return BookMapper.INSTANCE.bookEntityToFindBookOutputDto(book);
     }
 
     public EditBookOutputDto editBook(Long id, EditBookInputDto input) {
-        var book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        BookModel bookModel = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
 
         if (input.getTitle() != null) {
-            book.setTitle(input.getTitle());
+            book.changeTitle(input.getTitle());
         }
 
         if (input.getAuthor() != null) {
-            book.setAuthor(input.getAuthor());
+            book.changeAuthor(input.getAuthor());
         }
 
         if (input.getStockAvailability() != null) {
-            book.setStockAvailability(input.getStockAvailability());
+            book.changeStockAvailability(input.getStockAvailability());
         }
 
         if (input.getPrice() != null) {
-            book.setPrice(input.getPrice());
+            book.changePrice(input.getPrice());
         }
 
-        this.bookRepository.save(book);
-
-        return BookMapper.INSTANCE.bookEntityToEditBookOutputDto(book);
+        this.bookRepository.save(BookMapper.INSTANCE.bookEntityToBookModel(book));
+        return BookMapper.INSTANCE.bookModelToEditBookOutputDto(bookModel);
     }
 
     @Transactional
     public void deductStock(List<StockDeductionInputDto> input) {
         for (StockDeductionInputDto requestedItem : input) {
-            var book = this.bookRepository.findById(requestedItem.getBookId())
+            BookModel bookModel = this.bookRepository.findById(requestedItem.getBookId())
                     .orElseThrow(() -> new BookNotFoundException(requestedItem.getBookId()));
+            Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
 
             if (book.getStockAvailability() == 0) {
                 log.info("Book with id {} is out of stock", book.getId());
@@ -80,7 +84,8 @@ public class CatalogService {
             }
 
             book.setStockAvailability(book.getStockAvailability() - requestedItem.getQuantity());
-            this.bookRepository.save(book);
+            BookModel updatedBookModel = BookMapper.INSTANCE.bookEntityToBookModel(book);
+            this.bookRepository.save(updatedBookModel);
 
             if (book.getStockAvailability() == 0) {
                 log.info("Book with id {} is now out of stock", book.getId());

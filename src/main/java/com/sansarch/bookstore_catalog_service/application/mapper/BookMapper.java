@@ -2,6 +2,7 @@ package com.sansarch.bookstore_catalog_service.application.mapper;
 
 import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
+import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,11 +17,17 @@ public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     Book createBookInputDtoToBookEntity(CreateBookInputDto dto);
 
-    CreateBookOutputDto bookEntityToCreateBookOutputDto(Book book);
+    CreateBookOutputDto bookModelToCreateBookOutputDto(BookModel bookModel);
 
-    List<ListBooksOutputDto> bookEntityListToListBooksOutputDtoList(List<Book> books);
+    List<ListBooksOutputDto> bookModelListToListBooksOutputDtoList(List<BookModel> bookModels);
+
+    FindBookOutputDto bookModelToFindBookOutputDto(BookModel bookModel);
 
     FindBookOutputDto bookEntityToFindBookOutputDto(Book book);
 
-    EditBookOutputDto bookEntityToEditBookOutputDto(Book book);
+    EditBookOutputDto bookModelToEditBookOutputDto(BookModel bookModel);
+
+    Book bookModelToBookEntity(BookModel bookModel);
+
+    BookModel bookEntityToBookModel(Book book);
 }

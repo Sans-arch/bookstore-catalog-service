@@ -1,6 +1,5 @@
 package com.sansarch.bookstore_catalog_service.domain.book.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,23 +9,30 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Table(name = "books")
 public class Book {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false)
     private String author;
-
-    @Column(nullable = false)
     private BigDecimal price;
-
-    @Column(nullable = false)
     private Integer stockAvailability;
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeAuthor(String author) {
+        this.author = author;
+    }
+
+    public void changePrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void changeStockAvailability(Integer stockAvailability) {
+        if (stockAvailability < 0) {
+            throw new IllegalArgumentException("Stock availability cannot be negative");
+        }
+        this.stockAvailability = stockAvailability;
+    }
 }
