@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.infra.dto;
+package com.sansarch.bookstore_catalog_service.infra.book.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

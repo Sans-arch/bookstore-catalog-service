@@ -1,7 +1,7 @@
 package com.sansarch.bookstore_catalog_service.infra.http.controller;
 
-import com.sansarch.bookstore_catalog_service.domain.service.CatalogService;
-import com.sansarch.bookstore_catalog_service.infra.dto.*;
+import com.sansarch.bookstore_catalog_service.application.service.CatalogService;
+import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

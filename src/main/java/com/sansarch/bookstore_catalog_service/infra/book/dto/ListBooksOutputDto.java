@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.infra.dto;
+package com.sansarch.bookstore_catalog_service.infra.book.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 
 @AllArgsConstructor
 @Data
-public class CreateBookOutputDto {
+public class ListBooksOutputDto {
     private Long id;
     private String title;
     private String author;
     private BigDecimal price;
-    private Integer stockAvailability;
+    private Long stockAvailability;
 }

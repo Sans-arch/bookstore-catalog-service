@@ -1,12 +1,12 @@
-package com.sansarch.bookstore_catalog_service.domain.service;
+package com.sansarch.bookstore_catalog_service.application.service;
 
-import com.sansarch.bookstore_catalog_service.domain.entity.Book;
-import com.sansarch.bookstore_catalog_service.domain.exception.BookNotFoundException;
-import com.sansarch.bookstore_catalog_service.domain.exception.InsufficientStockException;
-import com.sansarch.bookstore_catalog_service.domain.exception.OutOfStockException;
-import com.sansarch.bookstore_catalog_service.domain.repository.BookRepository;
-import com.sansarch.bookstore_catalog_service.infra.dto.*;
-import com.sansarch.bookstore_catalog_service.infra.mapper.BookMapper;
+import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
+import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
+import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
+import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockException;
+import com.sansarch.bookstore_catalog_service.application.repository.BookRepository;
+import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
+import com.sansarch.bookstore_catalog_service.application.mapper.BookMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

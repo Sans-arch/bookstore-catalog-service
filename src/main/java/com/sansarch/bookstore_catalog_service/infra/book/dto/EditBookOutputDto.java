@@ -1,13 +1,15 @@
-package com.sansarch.bookstore_catalog_service.infra.dto;
+package com.sansarch.bookstore_catalog_service.infra.book.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @AllArgsConstructor
-@Data
-public class ListBooksOutputDto {
+@Getter
+@Setter
+public class EditBookOutputDto {
     private Long id;
     private String title;
     private String author;

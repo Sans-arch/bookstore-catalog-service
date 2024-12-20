@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.domain.exception;
+package com.sansarch.bookstore_catalog_service.domain.book.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
