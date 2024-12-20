@@ -1,6 +1,5 @@
 package com.sansarch.bookstore_catalog_service.infra.mapper;
 
-import com.sansarch.bookstore_catalog_service.dto.*;
 import com.sansarch.bookstore_catalog_service.domain.entity.Book;
 import com.sansarch.bookstore_catalog_service.infra.dto.*;
 import org.mapstruct.Mapper;
