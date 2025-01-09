@@ -1,12 +1,15 @@
 package com.sansarch.bookstore_catalog_service.application.service;
 
+import com.sansarch.bookstore_catalog_service.application.mapper.BookMapper;
+import com.sansarch.bookstore_catalog_service.application.repository.BookRepository;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.CheckStockUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
 import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockException;
-import com.sansarch.bookstore_catalog_service.application.repository.BookRepository;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
-import com.sansarch.bookstore_catalog_service.application.mapper.BookMapper;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import java.util.List;
 public class CatalogService {
 
     private BookRepository bookRepository;
+    private CheckStockUseCase checkStockUseCase;
 
     public CreateBookOutputDto addBookToCatalog(CreateBookInputDto input) {
         Book book = BookMapper.INSTANCE.createBookInputDtoToBookEntity(input);
@@ -91,5 +95,9 @@ public class CatalogService {
                 log.info("Book with id {} is now out of stock", book.getId());
             }
         }
+    }
+
+    public CheckStockOutputDto checkStockAvailability(List<CheckStockInputDto> items) {
+        return checkStockUseCase.execute(items);
     }
 }

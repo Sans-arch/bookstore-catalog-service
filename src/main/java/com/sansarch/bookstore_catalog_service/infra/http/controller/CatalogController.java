@@ -1,6 +1,8 @@
 package com.sansarch.bookstore_catalog_service.infra.http.controller;
 
 import com.sansarch.bookstore_catalog_service.application.service.CatalogService;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,5 +42,10 @@ public class CatalogController {
     public ResponseEntity<Void> deductStock(@RequestBody List<StockDeductionInputDto> input) {
         catalogService.deductStock(input);
         return ResponseEntity.status(204).build();
+    }
+
+    @PostMapping("/stock/check-stock-availability")
+    public ResponseEntity<CheckStockOutputDto> checkStockAvailability(@RequestBody List<CheckStockInputDto> input) {
+        return ResponseEntity.ok(catalogService.checkStockAvailability(input));
     }
 }
