@@ -8,7 +8,7 @@ import com.sansarch.bookstore_catalog_service.application.usecase.registrate_boo
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookOutputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookInputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookOutputDto;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.FindBookOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class CatalogController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindBookOutputDto> getBook(@PathVariable Long id) {
+    public ResponseEntity<FindBookUseCaseOutputDto> getBook(@PathVariable Long id) {
         return ResponseEntity.ok(catalogService.findBook(id));
     }
 

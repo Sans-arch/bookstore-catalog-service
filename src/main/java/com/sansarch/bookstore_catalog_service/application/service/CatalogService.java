@@ -5,8 +5,9 @@ import com.sansarch.bookstore_catalog_service.application.repository.BookReposit
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.CheckStockUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.FindBookUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.ListAllBooksUseCase;
-import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputBookDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.RegisterBookUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookInputDto;
@@ -15,7 +16,10 @@ import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockException;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.*;
+import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookInputDto;
+import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
+import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +37,7 @@ public class CatalogService {
     private CheckStockUseCase checkStockUseCase;
     private RegisterBookUseCase registerBookUseCase;
     private ListAllBooksUseCase listAllBooksUseCase;
+    private FindBookUseCase findBookUseCase;
 
     public RegisterBookOutputDto addBookToCatalog(RegisterBookInputDto input) {
         return registerBookUseCase.execute(input);
@@ -42,10 +47,8 @@ public class CatalogService {
         return listAllBooksUseCase.execute(null);
     }
 
-    public FindBookOutputDto findBook(Long id) {
-        BookModel bookModel = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
-        Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
-        return BookMapper.INSTANCE.bookEntityToFindBookOutputDto(book);
+    public FindBookUseCaseOutputDto findBook(Long id) {
+        return findBookUseCase.execute(new FindBookUseCaseInputDto(id));
     }
 
     public EditBookOutputDto editBook(Long id, EditBookInputDto input) {
