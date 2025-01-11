@@ -9,7 +9,7 @@ import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockException;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputBookDto;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class DeductStockUseCase implements UseCase<DeductStockUseCaseInputDto, D
     @Override
     @Transactional
     public DeductStockUseCaseOutputDto execute(DeductStockUseCaseInputDto input) {
-        for (StockDeductionInputDto requestedItem : input.getBooksToBeDeducted()) {
+        for (DeductStockUseCaseInputBookDto requestedItem : input.getBooksToBeDeducted()) {
             BookModel bookModel = this.bookRepository.findById(requestedItem.getBookId())
                     .orElseThrow(() -> new BookNotFoundException(requestedItem.getBookId()));
             Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);

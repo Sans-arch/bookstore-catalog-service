@@ -6,7 +6,7 @@ import com.sansarch.bookstore_catalog_service.application.usecase.UseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.CheckStockBookAvailabilityDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputBookAvailabilityDto;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,13 +23,13 @@ public class CheckStockUseCase implements UseCase<List<CheckStockInputDto>, Chec
     @Override
     public CheckStockOutputDto execute(List<CheckStockInputDto> input) {
         boolean allAvailable = false;
-        List<CheckStockBookAvailabilityDto> booksAvailability = new ArrayList<>();
+        List<CheckStockOutputBookAvailabilityDto> booksAvailability = new ArrayList<>();
 
         for (CheckStockInputDto item : input) {
             BookModel bookModel = bookRepository.findById(item.getBookId()).orElseThrow(() -> new BookNotFoundException(item.getBookId()));
             var book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
 
-            var bookAvailabilityDto = new CheckStockBookAvailabilityDto(book.getId(), true, book.getStockAvailability());
+            var bookAvailabilityDto = new CheckStockOutputBookAvailabilityDto(book.getId(), true, book.getStockAvailability());
 
             if (book.getStockAvailability() == 0) {
                 bookAvailabilityDto.setAvailable(false);

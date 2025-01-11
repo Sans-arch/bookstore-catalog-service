@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.infra.book.dto;
+package com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class StockDeductionInputDto {
+public class DeductStockUseCaseInputBookDto {
     private Long bookId;
     private Integer quantity;
 }

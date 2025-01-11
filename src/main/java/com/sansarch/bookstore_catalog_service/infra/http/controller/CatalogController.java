@@ -4,13 +4,12 @@ import com.sansarch.bookstore_catalog_service.application.service.CatalogService
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputBookDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookOutputDto;
-import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputDto;
-import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseOutputDto;
-import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputBookDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +45,7 @@ public class CatalogController {
     }
 
     @PutMapping("/stock")
-    public ResponseEntity<Void> deductStock(@RequestBody List<StockDeductionInputDto> input) {
+    public ResponseEntity<Void> deductStock(@RequestBody List<DeductStockUseCaseInputBookDto> input) {
         catalogService.deductStock(input);
         return ResponseEntity.status(204).build();
     }

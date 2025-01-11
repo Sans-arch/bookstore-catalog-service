@@ -17,7 +17,7 @@ import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.RegisterBookUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookOutputDto;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputBookDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class CatalogService {
         return editBookUseCase.execute(new EditBookUseCaseInputDto(id, payload));
     }
 
-    public void deductStock(List<StockDeductionInputDto> input) {
+    public void deductStock(List<DeductStockUseCaseInputBookDto> input) {
         deductStockUseCase.execute(new DeductStockUseCaseInputDto(input));
     }
 
