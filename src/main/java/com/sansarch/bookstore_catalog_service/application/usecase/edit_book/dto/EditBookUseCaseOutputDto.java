@@ -1,4 +1,4 @@
-package com.sansarch.bookstore_catalog_service.infra.book.dto;
+package com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EditBookOutputDto {
+public class EditBookUseCaseOutputDto {
     private Long id;
     private String title;
     private String author;

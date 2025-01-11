@@ -5,8 +5,13 @@ import com.sansarch.bookstore_catalog_service.application.repository.BookReposit
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.CheckStockUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.EditBookUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputBookDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.find_book.FindBookUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.ListAllBooksUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.RegisterBookUseCase;
@@ -16,9 +21,6 @@ import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.OutOfStockException;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookInputDto;
-import com.sansarch.bookstore_catalog_service.infra.book.dto.EditBookOutputDto;
-import com.sansarch.bookstore_catalog_service.application.usecase.find_book.dto.FindBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.dto.StockDeductionInputDto;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
@@ -38,6 +40,7 @@ public class CatalogService {
     private RegisterBookUseCase registerBookUseCase;
     private ListAllBooksUseCase listAllBooksUseCase;
     private FindBookUseCase findBookUseCase;
+    private EditBookUseCase editBookUseCase;
 
     public RegisterBookOutputDto addBookToCatalog(RegisterBookInputDto input) {
         return registerBookUseCase.execute(input);
@@ -51,28 +54,8 @@ public class CatalogService {
         return findBookUseCase.execute(new FindBookUseCaseInputDto(id));
     }
 
-    public EditBookOutputDto editBook(Long id, EditBookInputDto input) {
-        BookModel bookModel = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
-        Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
-
-        if (input.getTitle() != null) {
-            book.changeTitle(input.getTitle());
-        }
-
-        if (input.getAuthor() != null) {
-            book.changeAuthor(input.getAuthor());
-        }
-
-        if (input.getStockAvailability() != null) {
-            book.changeStockAvailability(input.getStockAvailability());
-        }
-
-        if (input.getPrice() != null) {
-            book.changePrice(input.getPrice());
-        }
-
-        this.bookRepository.save(BookMapper.INSTANCE.bookEntityToBookModel(book));
-        return BookMapper.INSTANCE.bookModelToEditBookOutputDto(bookModel);
+    public EditBookUseCaseOutputDto editBook(Long id, EditBookUseCaseInputBookDto payload) {
+        return editBookUseCase.execute(new EditBookUseCaseInputDto(id, payload));
     }
 
     @Transactional
