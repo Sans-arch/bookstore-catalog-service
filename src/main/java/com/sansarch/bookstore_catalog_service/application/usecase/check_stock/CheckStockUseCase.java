@@ -9,13 +9,13 @@ import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFound
 import com.sansarch.bookstore_catalog_service.infra.book.dto.CheckStockBookAvailabilityDto;
 import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@Service
+@Component
 public class CheckStockUseCase implements UseCase<List<CheckStockInputDto>, CheckStockOutputDto> {
 
     private BookRepository bookRepository;

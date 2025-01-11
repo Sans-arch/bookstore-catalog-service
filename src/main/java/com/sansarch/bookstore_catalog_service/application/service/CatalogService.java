@@ -5,6 +5,12 @@ import com.sansarch.bookstore_catalog_service.application.repository.BookReposit
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.CheckStockUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.ListAllBooksUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputBookDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books.dto.ListAllBooksUseCaseOutputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.RegisterBookUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookInputDto;
+import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookOutputDto;
 import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.InsufficientStockException;
@@ -25,16 +31,15 @@ public class CatalogService {
 
     private BookRepository bookRepository;
     private CheckStockUseCase checkStockUseCase;
+    private RegisterBookUseCase registerBookUseCase;
+    private ListAllBooksUseCase listAllBooksUseCase;
 
-    public CreateBookOutputDto addBookToCatalog(CreateBookInputDto input) {
-        Book book = BookMapper.INSTANCE.createBookInputDtoToBookEntity(input);
-        BookModel bookModel = BookMapper.INSTANCE.bookEntityToBookModel(book);
-        bookRepository.save(bookModel);
-        return BookMapper.INSTANCE.bookModelToCreateBookOutputDto(bookModel);
+    public RegisterBookOutputDto addBookToCatalog(RegisterBookInputDto input) {
+        return registerBookUseCase.execute(input);
     }
 
-    public List<ListBooksOutputDto> listAllBooks() {
-        return BookMapper.INSTANCE.bookModelListToListBooksOutputDtoList(bookRepository.findAll());
+    public ListAllBooksUseCaseOutputDto listAllBooks() {
+        return listAllBooksUseCase.execute(null);
     }
 
     public FindBookOutputDto findBook(Long id) {
