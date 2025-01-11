@@ -1,13 +1,12 @@
 package com.sansarch.bookstore_catalog_service.application.usecase.edit_book;
 
 import com.sansarch.bookstore_catalog_service.application.mapper.BookMapper;
-import com.sansarch.bookstore_catalog_service.application.repository.BookRepository;
 import com.sansarch.bookstore_catalog_service.application.usecase.UseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseOutputDto;
 import com.sansarch.bookstore_catalog_service.domain.book.entity.Book;
 import com.sansarch.bookstore_catalog_service.domain.book.exception.BookNotFoundException;
-import com.sansarch.bookstore_catalog_service.infra.book.repository.model.BookModel;
+import com.sansarch.bookstore_catalog_service.domain.book.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +18,8 @@ public class EditBookUseCase implements UseCase<EditBookUseCaseInputDto, EditBoo
 
     @Override
     public EditBookUseCaseOutputDto execute(EditBookUseCaseInputDto input) {
-        BookModel bookModel = this.bookRepository.findById(input.getId())
+        Book book = bookRepository.findById(input.getId())
                 .orElseThrow(() -> new BookNotFoundException(input.getId()));
-        Book book = BookMapper.INSTANCE.bookModelToBookEntity(bookModel);
 
         var newContent = input.getBookNewContent();
 
@@ -41,7 +39,7 @@ public class EditBookUseCase implements UseCase<EditBookUseCaseInputDto, EditBoo
             book.changePrice(newContent.getPrice());
         }
 
-        this.bookRepository.save(BookMapper.INSTANCE.bookEntityToBookModel(book));
-        return BookMapper.INSTANCE.bookModelToEditBookOutputDto(bookModel);
+        bookRepository.save(book);
+        return BookMapper.INSTANCE.bookEntityToEditBookOutputDto(book);
     }
 }
