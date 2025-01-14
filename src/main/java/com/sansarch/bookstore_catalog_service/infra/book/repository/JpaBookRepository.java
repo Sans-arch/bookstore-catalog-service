@@ -27,7 +27,8 @@ public class JpaBookRepository implements BookRepository {
     }
 
     @Override
-    public void save(Book book) {
-        springDataRepository.save(BookMapper.INSTANCE.bookEntityToBookModel(book));
+    public Book save(Book book) {
+        var persistedBook = springDataRepository.save(BookMapper.INSTANCE.bookEntityToBookModel(book));
+        return BookMapper.INSTANCE.bookModelToBookEntity(persistedBook);
     }
 }
