@@ -11,6 +11,7 @@ import lombok.Setter;
 @Builder
 public class CheckStockOutputBookAvailabilityDto {
     private Long bookId;
-    private Boolean available;
+    private Boolean isAvailable;
+    private Integer requestedQuantity;
     private Integer stock;
 }

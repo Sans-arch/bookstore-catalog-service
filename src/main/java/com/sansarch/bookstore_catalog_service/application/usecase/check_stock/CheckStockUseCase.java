@@ -20,24 +20,29 @@ public class CheckStockUseCase implements UseCase<List<CheckStockInputDto>, Chec
 
     @Override
     public CheckStockOutputDto execute(List<CheckStockInputDto> input) {
-        boolean allAvailable = false;
         List<CheckStockOutputBookAvailabilityDto> booksAvailability = new ArrayList<>();
 
         for (CheckStockInputDto item : input) {
             var book = bookRepository.findById(item.getBookId()).orElseThrow(() -> new BookNotFoundException(item.getBookId()));
-            var bookAvailabilityDto = new CheckStockOutputBookAvailabilityDto(book.getId(), true, book.getStockAvailability());
+            var bookAvailabilityDto = CheckStockOutputBookAvailabilityDto.builder()
+                    .bookId(book.getId())
+                    .isAvailable(true)
+                    .requestedQuantity(item.getQuantity())
+                    .stock(book.getStockAvailability())
+                    .build();
 
             if (book.getStockAvailability() == 0) {
-                bookAvailabilityDto.setAvailable(false);
+                bookAvailabilityDto.setIsAvailable(false);
             }
 
             if (book.getStockAvailability() < item.getQuantity()) {
-                bookAvailabilityDto.setAvailable(false);
+                bookAvailabilityDto.setIsAvailable(false);
             }
 
             booksAvailability.add(bookAvailabilityDto);
         }
 
+        boolean allAvailable = booksAvailability.stream().allMatch(CheckStockOutputBookAvailabilityDto::getIsAvailable);
         return new CheckStockOutputDto(allAvailable, booksAvailability);
     }
 }
