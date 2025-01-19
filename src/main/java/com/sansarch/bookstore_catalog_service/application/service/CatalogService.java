@@ -4,6 +4,7 @@ import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.Ch
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.check_stock.dto.CheckStockOutputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.DeductStockUseCase;
+import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputBookDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.EditBookUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.edit_book.dto.EditBookUseCaseInputBookDto;
@@ -17,7 +18,6 @@ import com.sansarch.bookstore_catalog_service.application.usecase.list_all_books
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.RegisterBookUseCase;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookInputDto;
 import com.sansarch.bookstore_catalog_service.application.usecase.registrate_book.dto.RegisterBookOutputDto;
-import com.sansarch.bookstore_catalog_service.application.usecase.deduct_stock.dto.DeductStockUseCaseInputBookDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

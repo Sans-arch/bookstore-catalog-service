@@ -1,7 +1,7 @@
 package com.sansarch.bookstore_catalog_service.infra.messaging;
 
-import com.sansarch.bookstore_catalog_service.domain.common.messaging.MessagePublisher;
 import com.sansarch.bookstore_catalog_service.domain.common.messaging.Event;
+import com.sansarch.bookstore_catalog_service.domain.common.messaging.MessagePublisher;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
