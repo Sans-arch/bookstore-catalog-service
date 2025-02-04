@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class CheckStockUseCase implements UseCase<List<CheckStockInputDto>, CheckStockOutputDto> {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Override
     public CheckStockOutputDto execute(List<CheckStockInputDto> input) {
