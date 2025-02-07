@@ -16,7 +16,8 @@ public class RegisterBookUseCase implements UseCase<RegisterBookInputDto, Regist
 
     @Override
     public RegisterBookOutputDto execute(RegisterBookInputDto input) {
-        var book = bookRepository.save(BookMapper.INSTANCE.createBookInputDtoToBookEntity(input));
-        return BookMapper.INSTANCE.bookEntityToCreateBookOutputDto(book);
+        var book = BookMapper.INSTANCE.createBookInputDtoToBookEntity(input);
+        var persistedBook = bookRepository.save(book);
+        return BookMapper.INSTANCE.bookEntityToCreateBookOutputDto(persistedBook);
     }
 }
