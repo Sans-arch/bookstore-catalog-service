@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 public class DeductStockUseCaseInputBookDto {
     private Long bookId;
-    private Integer quantity;
+    private Long quantity;
 }

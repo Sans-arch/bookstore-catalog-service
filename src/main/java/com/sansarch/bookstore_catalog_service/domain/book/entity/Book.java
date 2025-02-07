@@ -15,7 +15,7 @@ public class Book {
     private String title;
     private String author;
     private BigDecimal price;
-    private Integer stockAvailability;
+    private Long stockAvailability;
 
     public void changeTitle(String title) {
         this.title = title;
@@ -29,7 +29,7 @@ public class Book {
         this.price = price;
     }
 
-    public void changeStockAvailability(Integer stockAvailability) {
+    public void changeStockAvailability(Long stockAvailability) {
         if (stockAvailability < 0) {
             throw new IllegalArgumentException("Stock availability cannot be negative");
         }

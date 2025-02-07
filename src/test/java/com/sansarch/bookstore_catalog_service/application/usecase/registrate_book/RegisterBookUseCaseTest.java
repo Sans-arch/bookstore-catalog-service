@@ -38,7 +38,7 @@ class RegisterBookUseCaseTest {
                 .title("Book Title")
                 .author("John Doe")
                 .price(BigDecimal.TEN)
-                .stockAvailability(10)
+                .stockAvailability(10L)
                 .build();
         when(bookRepository.save(any(Book.class))).thenReturn(persistedBook);
 
@@ -67,7 +67,7 @@ class RegisterBookUseCaseTest {
                 .title("Book Title")
                 .author("John Doe")
                 .price(BigDecimal.TEN)
-                .stockAvailability(0)
+                .stockAvailability(0L)
                 .build();
         when(bookRepository.save(any(Book.class))).thenReturn(persistedBook);
 

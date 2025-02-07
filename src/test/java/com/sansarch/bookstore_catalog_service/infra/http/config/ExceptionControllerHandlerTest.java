@@ -37,7 +37,7 @@ class ExceptionControllerHandlerTest {
 
     @Test
     void shouldReturnBadRequestErrorResponseWhenInsufficientStockException() {
-        InsufficientStockException exception = new InsufficientStockException(1L, 10, 20);
+        InsufficientStockException exception = new InsufficientStockException(1L, 10L, 20L);
 
         ResponseEntity<ErrorDataResponse> response = exceptionControllerHandler.handleInsufficientStockException(exception, webRequest);
 

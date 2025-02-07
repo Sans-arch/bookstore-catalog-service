@@ -13,5 +13,5 @@ public class CheckStockOutputBookAvailabilityDto {
     private Long bookId;
     private Boolean isAvailable;
     private Integer requestedQuantity;
-    private Integer stock;
+    private Long stock;
 }

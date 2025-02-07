@@ -54,12 +54,12 @@ class BookTest {
     void shouldChangeStockAvailabilityCorrectly() {
         Book book = Book
                 .builder()
-                .stockAvailability(10)
+                .stockAvailability(10L)
                 .build();
 
         assertEquals(10, book.getStockAvailability());
 
-        book.changeStockAvailability(20);
+        book.changeStockAvailability(20L);
 
         assertEquals(20, book.getStockAvailability());
     }
@@ -68,11 +68,11 @@ class BookTest {
     void shouldThrowExceptionWhenChangingStockAvailabilityToNegative() {
         Book book = Book
                 .builder()
-                .stockAvailability(10)
+                .stockAvailability(10L)
                 .build();
 
         assertEquals(10, book.getStockAvailability());
 
-        assertThrows(IllegalArgumentException.class, () -> book.changeStockAvailability(-1));
+        assertThrows(IllegalArgumentException.class, () -> book.changeStockAvailability(-1L));
     }
 }

@@ -36,8 +36,8 @@ class CheckStockUseCaseTest {
         when(bookRepository.findById(2L)).thenReturn(Optional.of(book2));
         when(book1.getId()).thenReturn(1L);
         when(book2.getId()).thenReturn(2L);
-        when(book1.getStockAvailability()).thenReturn(40);
-        when(book2.getStockAvailability()).thenReturn(40);
+        when(book1.getStockAvailability()).thenReturn(40L);
+        when(book2.getStockAvailability()).thenReturn(40L);
 
         var output = checkStockUseCase.execute(input);
 
@@ -61,8 +61,8 @@ class CheckStockUseCaseTest {
         when(bookRepository.findById(2L)).thenReturn(Optional.of(book2));
         when(book1.getId()).thenReturn(1L);
         when(book2.getId()).thenReturn(2L);
-        when(book1.getStockAvailability()).thenReturn(10);
-        when(book2.getStockAvailability()).thenReturn(32);
+        when(book1.getStockAvailability()).thenReturn(10L);
+        when(book2.getStockAvailability()).thenReturn(32L);
 
         var output = checkStockUseCase.execute(input);
 
@@ -86,8 +86,8 @@ class CheckStockUseCaseTest {
         when(bookRepository.findById(2L)).thenReturn(Optional.of(book2));
         when(book1.getId()).thenReturn(1L);
         when(book2.getId()).thenReturn(2L);
-        when(book1.getStockAvailability()).thenReturn(0);
-        when(book2.getStockAvailability()).thenReturn(0);
+        when(book1.getStockAvailability()).thenReturn(0L);
+        when(book2.getStockAvailability()).thenReturn(0L);
 
         var output = checkStockUseCase.execute(input);
 
